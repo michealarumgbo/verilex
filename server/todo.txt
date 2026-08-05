@@ -1,0 +1,32 @@
+store message sending inside the socket
+and check other messaging things too
+
+
+create jobs to close chats after 24hrs from when guest disconnects
+
+work on frontend flow
+
+user can either request customer service or leave a message
+
+user fills form for CS
+    |
+    v
+request is sent via socket upon connection
+    |
+    v
+once accepted, socket notifies frontend and messaging begins
+    |
+    v
+messages sent is through socket and is stored in db
+    |
+    v
+if user does not close chat and disconnects?
+    |
+    v
+wait 24hrs after disconnection to close chat
+    |
+    v
+if they continue before disconnection?
+    |
+    v
+end timer and start afresh after they disconnect again

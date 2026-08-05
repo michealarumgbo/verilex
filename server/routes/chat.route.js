@@ -6,6 +6,10 @@ import {
   acceptChat,
   getActiveChat,
   getPendingChat,
+  closeChat,
+  createChat,
+  getGuestChat,
+  getAgentChat,
 } from "../controllers/chat.controller.js";
 
 dotenv.config();
@@ -28,7 +32,18 @@ router.patch(
   authorise("agent"),
   acceptChat,
 );
+router.patch(
+  "/:chatId/close",
+  auth(ACCESS_SECRET),
+  authorise("agent"),
+  closeChat,
+);
+router.patch("/session/:sessionId/close", closeChat);
+
+router.post("/", createChat);
 
 router.get("/active", auth(ACCESS_SECRET), authorise("agent"), getActiveChat);
+router.get("/session/:sessionId", getGuestChat);
+router.get("/:chatId", auth(ACCESS_SECRET), authorise("agent"), getAgentChat);
 
 export default router;

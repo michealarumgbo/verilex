@@ -11,6 +11,7 @@ import {
   registerAgent,
   suspendAgent,
 } from "../controllers/admin.controller.js";
+import { getAdminChat } from "../controllers/chat.controller.js";
 
 dotenv.config();
 
@@ -40,6 +41,12 @@ router.get(
   auth(ACCESS_SECRET),
   authorise("admin"),
   getClosedChats,
+);
+router.get(
+  "/chats/:chatId",
+  auth(ACCESS_SECRET),
+  authorise("admin"),
+  getAdminChat,
 );
 
 export default router;
