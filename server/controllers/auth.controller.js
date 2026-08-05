@@ -5,43 +5,18 @@ import {
   newAccessToken,
   newRefreshToken,
 } from "../utils/functions.js";
-import { loginSchema, regSchema } from "../validation/auth.validate.js";
+import {
+  loginSchema,
+  updatePasswordSchema,
+} from "../validation/auth.validate.js";
 import z from "zod";
-import { BadRequestError, NotFoundError } from "../errors.js";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnAuthenticatedError,
+} from "../errors.js";
 import bcrypt from "bcrypt";
 import { STATUS_CODE } from "../constants.js";
-
-// register agent
-export const registerAgent = async (req, res) => {
-  // parse the input for validation
-  const { firstname, lastname, email } = regSchema.parse(req.body);
-
-  //   check if agent already exists
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    throw BadRequestError("User already exists");
-  }
-  const password = generatePassword();
-  //   hash password
-  const hashedPassword = await bcrypt.hash(password, 13);
-
-  const agent = new User({
-    firstname,
-    lastname,
-    password: hashedPassword,
-    email,
-    mustChangePassword: true,
-  });
-
-  await agent.save();
-
-  const agentData = agent.toObject();
-  delete agentData.password;
-
-  return res
-    .status(STATUS_CODE.CREATED)
-    .json({ message: "Agent created successfully", agent: agentData });
-};
 
 // login - (agent & admin)
 export const login = async (req, res) => {
@@ -58,6 +33,11 @@ export const login = async (req, res) => {
   const passwordsMatch = await bcrypt.compare(password, user.password);
   if (!passwordsMatch) {
     throw NotFoundError("Invalid Email or Password");
+  }
+
+  // check account status
+  if (user.status != "active") {
+    throw UnAuthenticatedError("This account has been suspended");
   }
 
   //   generate tokens
@@ -88,16 +68,38 @@ export const login = async (req, res) => {
 // logout - (agent & admin)
 export const logout = async (req, res) => {
   await RefreshToken.updateOne({ user: user._id }, { token: "" });
-  res
+  return res
     .status(STATUS_CODE.SUCCESS)
     .json({ message: "User logged out successfully" });
 };
 
 // new access token - (all users)
-export const newToken = async (req, res) => {
+export const refreshAccessToken = async (req, res) => {
   const accessToken = newAccessToken(user);
-  res.status(STATUS_CODE.SUCCESS).json({
+  return res.status(STATUS_CODE.SUCCESS).json({
     message: "New Token Generated Successfully",
     token: accessToken,
   });
+};
+
+// change password
+export const updatePassword = async (req, res) => {
+  const user = req.user;
+
+  const { password } = updatePasswordSchema.parse(req.body);
+
+  const hashedPassword = await bcrypt.hash(password, 13);
+
+  await User.findByIdAndUpdate(user._id, { password: hashedPassword });
+
+  return res
+    .status(STATUS_CODE)
+    .json({ message: "Password updated successfully" });
+};
+
+// get profile
+export const getMe = async (req, res) => {
+  const user = req.user;
+
+  return res.status(STATUS_CODE.SUCCESS).json({ user });
 };

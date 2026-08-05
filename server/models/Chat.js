@@ -17,6 +17,10 @@ const chatSchema = new Schema(
       unique: true,
       required: true,
     },
+    sessionExpiresAt: {
+      type: Date,
+      default: () => new Date(Date.now() + 24 * 60 * 60 * 1000),
+    },
     status: {
       type: String,
       eunm: ["active", "closed", "pending"],
