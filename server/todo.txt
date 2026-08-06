@@ -1,5 +1,6 @@
 store message sending inside the socket
 and check other messaging things too
+also when request accepted notify connected party via websocket
 
 
 create jobs to close chats after 24hrs from when guest disconnects
@@ -30,3 +31,20 @@ if they continue before disconnection?
     |
     v
 end timer and start afresh after they disconnect again
+
+things I want to achieve
+Rate limiting
+Background job
+CI/CD pipelining
+Caching
+Containerization with docker and kubernates
+Observability
+Disaster Recovery
+
+use socketIO 
+accept-chat - done
+send-message
+typing
+stop-typing
+mark-read
+close-chat

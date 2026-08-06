@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 import { auth } from "../middlewares/auth.middleware.js";
 import { authorise } from "../middlewares/authorise.middleware.js";
 import {
@@ -10,7 +10,7 @@ import {
   updatePassword,
 } from "../controllers/auth.controller.js";
 
-dotenv.config();
+// dotenv.config();
 
 const router = express.Router();
 

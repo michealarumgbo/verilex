@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const auth = async (secret_key = process.env.JWT_ACCESS_SECRET) => {
+export const auth = (secret_key = process.env.JWT_ACCESS_SECRET) => {
   return async (req, res, next) => {
     // get auth header
     const authHeader = req.get("Authorization");

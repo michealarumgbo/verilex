@@ -5,10 +5,14 @@ import { dbConnect } from "./config/database.js";
 import authRouter from "./routes/auth.route.js";
 import adminRouter from "./routes/admin.route.js";
 import chatRouter from "./routes/chat.route.js";
+import cookieParser from "cookie-parser";
+import { registerSocketHandlers } from "./sockets/sockets.js";
 
 dotenv.config();
 
 const app = express();
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(express.json());
 
 // routes
 app.use("/verilex/api/v1/auth", authRouter);
@@ -31,5 +35,10 @@ const io = new Server(expressServer, {
   cors: {
     origin:
       process.env.NODE_ENV === "production" ? false : ["http://localhost:5173"],
+    credentials: true,
   },
 });
+
+app.set("io", io);
+
+registerSocketHandlers(io);

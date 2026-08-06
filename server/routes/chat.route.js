@@ -1,18 +1,13 @@
 import express from "express";
-import dotenv from "dotenv";
 import { auth } from "../middlewares/auth.middleware.js";
 import { authorise } from "../middlewares/authorise.middleware.js";
 import {
-  acceptChat,
   getActiveChat,
   getPendingChat,
-  closeChat,
   createChat,
   getGuestChat,
   getAgentChat,
 } from "../controllers/chat.controller.js";
-
-dotenv.config();
 
 const router = express.Router();
 
@@ -26,19 +21,19 @@ router.get(
   getPendingChat,
 );
 
-router.patch(
-  "/:chatId/accept",
-  auth(ACCESS_SECRET),
-  authorise("agent"),
-  acceptChat,
-);
-router.patch(
-  "/:chatId/close",
-  auth(ACCESS_SECRET),
-  authorise("agent"),
-  closeChat,
-);
-router.patch("/session/:sessionId/close", closeChat);
+// router.patch(
+//   "/:chatId/accept",
+//   auth(ACCESS_SECRET),
+//   authorise("agent"),
+//   acceptChat,
+// );
+// router.patch(
+//   "/:chatId/close",
+//   auth(ACCESS_SECRET),
+//   authorise("agent"),
+//   closeChat,
+// );
+// router.patch("/session/:sessionId/close", closeChat);
 
 router.post("/", createChat);
 

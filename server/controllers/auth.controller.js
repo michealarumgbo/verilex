@@ -75,7 +75,7 @@ export const logout = async (req, res) => {
 
 // new access token - (all users)
 export const refreshAccessToken = async (req, res) => {
-  const accessToken = newAccessToken(user);
+  const accessToken = newAccessToken(req.user);
   return res.status(STATUS_CODE.SUCCESS).json({
     message: "New Token Generated Successfully",
     token: accessToken,
