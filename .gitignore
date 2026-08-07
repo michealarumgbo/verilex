@@ -1,4 +1,5 @@
 client/node_modules
+client-org/node_modules
 server/node_modules
 server/.env
 design considerations/

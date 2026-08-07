@@ -600,9 +600,9 @@ const vReveal = {
                             <h3 class="font-display text-[23px] text-[#101E2B] font-semibold mb-2.5">Request sent</h3>
                             <p class="text-[14.5px] text-[#6B6558] leading-relaxed mb-2">
 
-                            <div>
+                            <p>
                                 We've notified our team. We will redirect you to the chat shortly.
-                            </div>
+                            </p>
                             </p>
 
                         </div>

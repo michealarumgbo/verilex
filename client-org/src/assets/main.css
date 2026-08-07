@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+button {
+  cursor: pointer;
+}
+
+.font-display {
+  font-family: 'Fraunces', serif;
+}
+.font-body {
+  font-family: 'Inter', sans-serif;
+}
+.font-mono2 {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+.animate-pulse-ring {
+  animation: pulseRing 1.8s ease-out infinite;
+}
+
+@keyframes bounceDot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+.animate-bounce-dot {
+  animation: bounceDot 1.2s ease-in-out infinite;
+}
+
+@keyframes sealIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-seal-in {
+  animation: sealIn 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  .animate-pulse-ring,
+  .animate-bounce-dot,
+  .animate-seal-in {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
