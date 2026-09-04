@@ -35,11 +35,11 @@ function handleSubmit() {
             <div class="flex flex-col items-center mb-8">
                 <div
                     class="w-14 h-14 rounded-full border-[1.4px] border-[#A9834B] flex items-center justify-center mb-4 animate-seal-in">
-                    <span class="font-display text-2xl font-semibold text-[#A9834B]">V</span>
+                    <span class="font-display text-2xl font-semibold text-[#A9834B]">A</span>
                 </div>
                 <div class="font-mono2 text-[11px] tracking-[0.14em] uppercase text-[#1E3B32] font-medium mb-1.5">Agent
                     Portal</div>
-                <h1 class="font-display font-semibold text-[26px] text-[#101E2B]">Sign in to Verilex</h1>
+                <h1 class="font-display font-semibold text-[26px] text-[#101E2B]">Sign in to AAOC</h1>
             </div>
 
             <!-- card -->
@@ -77,7 +77,7 @@ function handleSubmit() {
             </form>
 
             <p class="text-center text-[12.5px] text-[#9A9587] font-mono2 mt-6">
-                Verilex Chambers · Accredited CAC &amp; FIRS Filing Agents
+                ARUMGBO ARUMGBO & CO · LEGAL PRACTITIONERS, REALTOR & CONSULTANT
             </p>
         </div>
 

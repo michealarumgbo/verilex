@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { agentStore } from '../stores/agentStore'
+import { agentStore } from '../../stores/agentStore'
 
 const statusOptions = ['Online', 'Away', 'Offline']
 
@@ -33,7 +33,7 @@ const statCards = [
     <div class="flex-1 overflow-y-auto">
         <!-- top bar -->
         <div
-            class="h-[78px] flex items-center px-8 border-b border-[#D6D1C0] bg-[#EFEDE5]/90 backdrop-blur-md sticky top-0 z-10">
+            class="h-19.5 flex items-center px-8 border-b border-[#D6D1C0] bg-[#EFEDE5]/90 backdrop-blur-md sticky top-0 z-10">
             <div>
                 <div class="font-mono2 text-[10.5px] tracking-[0.14em] uppercase text-[#1E3B32] font-medium">ACCOUNT
                 </div>
@@ -41,12 +41,12 @@ const statCards = [
             </div>
         </div>
 
-        <div class="p-8 max-w-[860px] grid md:grid-cols-[1fr_260px] gap-8">
+        <div class="p-8 max-w-215 grid md:grid-cols-[1fr_260px] gap-8">
             <!-- profile form -->
             <form @submit.prevent="handleSave" class="bg-[#FBFAF6] border border-[#D6D1C0] p-7">
                 <div class="flex items-center gap-4 mb-7">
                     <div
-                        class="w-16 h-16 rounded-full bg-[#A9834B] text-[#101E2B] flex items-center justify-center font-display font-semibold text-xl flex-shrink-0">
+                        class="w-16 h-16 rounded-full bg-[#A9834B] text-[#101E2B] flex items-center justify-center font-display font-semibold text-xl shrink-0">
                         {{ agentStore.agent.initials }}
                     </div>
                     <div>

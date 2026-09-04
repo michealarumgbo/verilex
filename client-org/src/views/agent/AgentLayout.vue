@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { agentStore, logout } from '../stores/agentStore'
+import { agentStore, logout } from '../../stores/agentStore'
 
 const route = useRoute()
 const router = useRouter()
@@ -32,9 +32,9 @@ function handleLogout() {
             <!-- brand -->
             <div class="h-[78px] flex items-center gap-2.5 px-6 border-b border-[rgba(239,237,229,0.12)] flex-shrink-0">
                 <span
-                    class="w-[30px] h-[30px] rounded-full border-[1.4px] border-[#A9834B] flex items-center justify-center text-[13px] font-bold text-[#A9834B] font-display flex-shrink-0">V</span>
+                    class="w-[30px] h-[30px] rounded-full border-[1.4px] border-[#A9834B] flex items-center justify-center text-[13px] font-bold text-[#A9834B] font-display flex-shrink-0">A</span>
                 <div class="min-w-0">
-                    <div class="font-display font-semibold text-[16px] leading-none truncate">Verilex</div>
+                    <div class="font-display font-semibold text-[16px] leading-none truncate">AAOC</div>
                     <div class="font-mono2 text-[9.5px] tracking-[0.14em] text-[rgba(239,237,229,0.5)] mt-1 uppercase">
                         Agent Portal</div>
                 </div>
@@ -51,7 +51,7 @@ function handleLogout() {
                     <div class="flex items-center gap-1.5 mt-0.5">
                         <span class="w-1.5 h-1.5 rounded-full bg-[#3E8E63] flex-shrink-0"></span>
                         <span class="font-mono2 text-[10px] text-[rgba(239,237,229,0.6)]">{{ agentStore.agent.status
-                        }}</span>
+                            }}</span>
                     </div>
                 </div>
             </div>

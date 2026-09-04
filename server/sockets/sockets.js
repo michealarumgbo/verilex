@@ -9,41 +9,7 @@ import signature from "cookie-signature";
 export const registerSocketHandlers = (io) => {
   io.use(async (socket, next) => {
     try {
-      if (socket.handshake.auth.token) {
-        let token = socket.handshake.auth.token;
-
-        if (
-          !token ||
-          typeof token !== "string" ||
-          !token.startsWith("Bearer ")
-        ) {
-          return next(new Error("Invalid token"));
-        }
-
-        token = token.replace("Bearer ", "");
-
-        const payload = jwt.verify(token, process.env.ACCESS_SECRET);
-
-        if (!payload || !payload.id) {
-          return next(new Error("Invalid or expired token"));
-        }
-
-        const user = await User.findById(payload.id).select("-password");
-
-        if (!user) {
-          return next(new Error("User not found"));
-        }
-
-        const isLoggedIn = await RefreshToken.findOne({
-          user: payload.id,
-        }).select("token");
-
-        if (!isLoggedIn || !isLoggedIn.token) {
-          return next(new Error("User is already logged out"));
-        }
-
-        socket.user = user;
-      } else if (socket.handshake.headers.cookie) {
+      if (socket.handshake.headers.cookie) {
         const rawCookies = socket.handshake.headers.cookie;
 
         if (!rawCookies) {
@@ -52,32 +18,86 @@ export const registerSocketHandlers = (io) => {
 
         const cookies = parseCookie(rawCookies);
 
-        const signedCookie = cookies.chatSession;
+        if (cookies?.accessToken) {
+          const signedAccessToken = cookies.accessToken;
 
-        if (!signedCookie || !signedCookie.startsWith("s:")) {
-          return next(new Error("Invalid session"));
+          if (!signedAccessToken || !signedAccessToken.startsWith("s:")) {
+            return next(new Error("Invalid Token"));
+          }
+          const accessToken = signature.unsign(
+            signedAccessToken.slice(2),
+            process.env.COOKIE_SECRET,
+          );
+
+          if (!accessToken) {
+            return next(new Error("Invalid access token"));
+          }
+
+          const payload = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+
+          if (!payload || !payload.id) {
+            return next(new Error("Invalid or expired token"));
+          }
+
+          const user = await User.findById(payload.id).select("-password");
+
+          if (!user) {
+            return next(new Error("User not found"));
+          }
+          const signedRefreshToken = cookies.refreshToken;
+
+          if (!signedRefreshToken?.startsWith("s:")) {
+            return next(new Error("Invalid refresh token"));
+          }
+
+          const refreshToken = signature.unsign(
+            signedRefreshToken.slice(2),
+            process.env.COOKIE_SECRET,
+          );
+
+          if (!refreshToken) {
+            return next(new Error("Invalid refresh token"));
+          }
+
+          const refreshTokenData = await RefreshToken.findOne({
+            user: payload.id,
+            token: refreshToken,
+          });
+
+          if (!refreshTokenData) {
+            return next(new Error("User is already logged out"));
+          }
+          socket.user = user;
         }
 
-        const sessionId = signature.unsign(
-          signedCookie.slice(2),
-          process.env.COOKIE_SECRET,
-        );
+        if (cookies?.chatSession) {
+          const signedCookie = cookies.chatSession;
 
-        if (!sessionId) {
-          return next(new Error("Invalid session"));
+          if (!signedCookie || !signedCookie.startsWith("s:")) {
+            return next(new Error("Invalid session"));
+          }
+
+          const sessionId = signature.unsign(
+            signedCookie.slice(2),
+            process.env.COOKIE_SECRET,
+          );
+
+          if (!sessionId) {
+            return next(new Error("Invalid session"));
+          }
+
+          const chat = await Chat.findOne({
+            sessionId,
+            status: { $ne: "closed" },
+            sessionExpiresAt: { $gt: new Date() },
+          });
+
+          if (!chat) {
+            return next(new Error("Session expired"));
+          }
+
+          socket.sessionId = sessionId;
         }
-
-        const chat = await Chat.findOne({
-          sessionId,
-          status: { $ne: "closed" },
-          sessionExpiresAt: { $gt: new Date() },
-        });
-
-        if (!chat) {
-          return next(new Error("Session expired"));
-        }
-
-        socket.sessionId = sessionId;
       } else {
         return next(new Error("Authentication is needed"));
       }

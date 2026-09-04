@@ -18,6 +18,21 @@ import {
 import bcrypt from "bcrypt";
 import { STATUS_CODE } from "../constants.js";
 
+const accessCookieOptions = {
+  maxAge: 60 * 60 * 1000,
+  signed: true,
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+};
+const refreshCookieOptions = {
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  signed: true,
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+};
+
 // login - (agent & admin)
 export const login = async (req, res) => {
   // parse the input for validation
@@ -59,6 +74,11 @@ export const login = async (req, res) => {
   const userData = user.toObject();
   delete userData.password;
 
+  // send cookies
+  res
+    .cookie("accessToken", accessToken, accessCookieOptions)
+    .cookie("refreshToken", refreshToken, refreshCookieOptions);
+
   return res.status(STATUS_CODE.SUCCESS).json({
     message: "User logged in successfully",
     user: { ...userData, accessToken, refreshToken },
@@ -67,18 +87,33 @@ export const login = async (req, res) => {
 
 // logout - (agent & admin)
 export const logout = async (req, res) => {
-  await RefreshToken.updateOne({ user: user._id }, { token: "" });
+  const user = req.user;
+  await RefreshToken.deleteOne({ user: user._id });
+  res.clearCookie("accessToken", accessCookieOptions);
+  res.clearCookie("refreshToken", refreshCookieOptions);
   return res
     .status(STATUS_CODE.SUCCESS)
     .json({ message: "User logged out successfully" });
 };
 
-// new access token - (all users)
+// new access token - (admins/agents)
 export const refreshAccessToken = async (req, res) => {
-  const accessToken = newAccessToken(req.user);
+  const user = req.user;
+  const accessToken = newAccessToken(user);
+  const refreshToken = newRefreshToken(user);
+
+  // set cookies
+  res
+    .cookie("accessToken", accessToken, accessCookieOptions)
+    .cookie("refreshToken", refreshToken, refreshCookieOptions);
+
+  await RefreshToken.updateOne({ user: user._id }, { token: refreshToken });
   return res.status(STATUS_CODE.SUCCESS).json({
     message: "New Token Generated Successfully",
-    token: accessToken,
+    user: {
+      accessToken,
+      refreshToken,
+    },
   });
 };
 

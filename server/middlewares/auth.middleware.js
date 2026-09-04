@@ -1,3 +1,4 @@
+import { UnauthourizedError } from "../errors.js";
 import User from "../models/User.js";
 import dotenv from "dotenv";
 
@@ -5,36 +6,70 @@ dotenv.config();
 
 export const auth = (secret_key = process.env.JWT_ACCESS_SECRET) => {
   return async (req, res, next) => {
-    // get auth header
-    const authHeader = req.get("Authorization");
-
-    // verify if token is not like "Bearer uefif..
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(403).json({ error: "Invalid Token" });
+    // get token
+    const token = req.signedCookies.accessToken;
+    if (!token) {
+      throw UnauthourizedError("Access token required");
     }
 
-    // get token
-    const token = authHeader.replace("Bearer ", "");
-
     // verify token
-    const decoded = jwt.verify(token, secret_key);
-    if (!decoded || !decoded.id) {
+    const payload = jwt.verify(token, secret_key);
+    if (!payload || !payload.id) {
       throw UnauthourizedError("Invalid or expired token");
     }
 
     // fetch user
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await User.findById(payload.id).select("-password");
     if (!user) {
       throw NotFoundError("User no longer exists");
     }
 
     // check if user logged in
     const isLoggedIn = await RefreshToken.findOne({
-      user: decoded.id,
+      user: payload.id,
     }).select("token");
 
     if (!isLoggedIn || !isLoggedIn.token) {
       throw UnauthourizedError("User is already logged out");
+    }
+
+    // append user to req object
+    req.user = user;
+    next();
+  };
+};
+
+// auth for refresh token
+export const authRefreshToken = (
+  secret_key = process.env.JWT_REFRESH_SECRET,
+) => {
+  return async (req, res, next) => {
+    // get token
+    const token = req.signedCookies.refreshToken;
+    if (!token) {
+      throw UnauthourizedError("Refresh token required");
+    }
+
+    // verify token
+    const payload = jwt.verify(token, secret_key);
+    if (!payload || !payload.id) {
+      throw UnauthourizedError("Invalid or expired token");
+    }
+
+    // fetch user
+    const user = await User.findById(payload.id).select("-password");
+    if (!user) {
+      throw NotFoundError("User no longer exists");
+    }
+
+    // check if user logged in
+    const refreshToken = await RefreshToken.findOne({
+      user: payload.id,
+      token,
+    });
+
+    if (!refreshToken) {
+      throw UnauthourizedError("Invalid refresh token or user logged out");
     }
 
     // append user to req object

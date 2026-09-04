@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { agentStore } from '../stores/agentStore'
+import { agentStore } from '../../stores/agentStore'
 
 const route = useRoute()
 const router = useRouter()
@@ -59,8 +59,8 @@ function sendMessage() {
     <div class="flex-1 flex min-h-0">
 
         <!-- ============================= CHAT LIST ============================= -->
-        <div class="w-[320px] flex-shrink-0 border-r border-[#D6D1C0] bg-[#EFEDE5] flex flex-col min-h-0">
-            <div class="h-[78px] flex items-center px-6 border-b border-[#D6D1C0] flex-shrink-0">
+        <div class="w-[320px] hrink-0 border-r border-[#D6D1C0] bg-[#EFEDE5] flex flex-col min-h-0">
+            <div class="h-19.5 flex items-center px-6 border-b border-[#D6D1C0] hrink-0">
                 <div>
                     <div class="font-mono2 text-[10.5px] tracking-[0.14em] uppercase text-[#1E3B32] font-medium">IN
                         PROGRESS</div>
@@ -75,7 +75,7 @@ function sendMessage() {
                     :class="selectedId === c.id ? 'bg-[#FBFAF6]' : 'hover:bg-[rgba(251,250,246,0.5)]'">
                     <div class="flex items-center justify-between gap-2 mb-1.5">
                         <span class="text-[14px] font-semibold text-[#101E2B] truncate">{{ c.name }}</span>
-                        <span class="font-mono2 text-[10px] text-[#9A9587] flex-shrink-0">{{ c.requestedAt }}</span>
+                        <span class="font-mono2 text-[10px] text-[#9A9587] shrink-0">{{ c.requestedAt }}</span>
                     </div>
                     <span
                         class="font-mono2 text-[9.5px] tracking-wider text-[#9A9587] border border-[#D6D1C0] px-2 py-0.5 rounded-full inline-block mb-1.5">{{
@@ -92,7 +92,7 @@ function sendMessage() {
         <!-- ============================= THREAD ============================= -->
         <div v-if="selectedChat" class="flex-1 flex flex-col min-h-0">
             <!-- thread header -->
-            <div class="h-[78px] flex items-center justify-between px-8 border-b border-[#D6D1C0] flex-shrink-0">
+            <div class="h-19.5 flex items-center justify-between px-8 border-b border-[#D6D1C0] shrink-0">
                 <div>
                     <div class="text-[16px] font-semibold text-[#101E2B]">{{ selectedChat.name }}</div>
                     <div class="flex items-center gap-2 mt-0.5">
@@ -101,7 +101,7 @@ function sendMessage() {
                         <span class="font-mono2 text-[11px] text-[#9A9587]">{{ selectedChat.contact }}</span>
                     </div>
                 </div>
-                <span class="flex items-center gap-1.5 flex-shrink-0">
+                <span class="flex items-center gap-1.5 shrink-0">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#3E8E63]"></span>
                     <span class="font-mono2 text-[10.5px] text-[#6B6558]">Active</span>
                 </span>
@@ -109,7 +109,7 @@ function sendMessage() {
 
             <!-- messages -->
             <div ref="threadRef" class="flex-1 overflow-y-auto px-8 py-6 bg-[#EFEDE5]">
-                <div class="flex flex-col gap-5 max-w-[680px]">
+                <div class="flex flex-col gap-5 max-w-170">
                     <div v-for="m in selectedChat.messages" :key="m.id" class="flex"
                         :class="m.from === 'agent' ? 'justify-end' : 'justify-start'">
                         <div class="max-w-[75%]">
@@ -128,13 +128,13 @@ function sendMessage() {
             </div>
 
             <!-- composer -->
-            <div class="border-t border-[#D6D1C0] bg-[#FBFAF6] px-8 py-4 flex-shrink-0">
-                <form @submit.prevent="sendMessage" class="flex items-end gap-3 max-w-[680px]">
+            <div class="border-t border-[#D6D1C0] bg-[#FBFAF6] px-8 py-4 shrink-0">
+                <form @submit.prevent="sendMessage" class="flex items-end gap-3 max-w-170">
                     <textarea v-model="messageInput" rows="1" placeholder="Type your reply…"
                         class="flex-1 border border-[#D6D1C0] bg-white px-4 py-3 text-[14.5px] resize-none focus:outline-none focus:border-[#A9834B]"
                         @keydown.enter.exact.prevent="sendMessage"></textarea>
                     <button type="submit" :disabled="!messageInput.trim()"
-                        class="px-6 py-3 text-sm font-semibold transition-colors flex-shrink-0"
+                        class="px-6 py-3 text-sm font-semibold transition-colors shrink-0"
                         :class="!messageInput.trim() ? 'bg-[#D6D1C0] text-[#9A9587] cursor-not-allowed' : 'bg-[#101E2B] text-[#EFEDE5] hover:bg-[#A9834B]'">
                         Send
                     </button>
@@ -146,7 +146,7 @@ function sendMessage() {
         <div v-else class="flex-1 flex items-center justify-center text-center px-8">
             <div>
                 <div class="font-display text-[19px] text-[#101E2B] font-semibold mb-2">No chat selected</div>
-                <p class="text-[14px] text-[#9A9587] max-w-[280px]">Accept a pending request to start an active chat.
+                <p class="text-[14px] text-[#9A9587] max-w-70">Accept a pending request to start an active chat.
                 </p>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { agentStore, acceptChat } from '../stores/agentStore'
+import { agentStore, acceptChat } from '../../stores/agentStore'
 
 const router = useRouter()
 const acceptingId = ref(null)

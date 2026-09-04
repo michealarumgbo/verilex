@@ -1,6 +1,6 @@
-store message sending inside the socket
+store message sending inside the socket - done
 and check other messaging things too
-also when request accepted notify connected party via websocket
+also when request accepted notify connected party via websocket - done
 
 
 create jobs to close chats after 24hrs from when guest disconnects
@@ -48,3 +48,12 @@ typing
 stop-typing
 mark-read
 close-chat
+
+
+
+
+IMPORTANT
+consultant, property, immigration, enterainment commercial lawyer
+scuml 
+
+proposed name is aaoc.legal

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
-import DashboardView from '@/views/DashboardView.vue'
-import AgentLayout from '@/views/AgentLayout.vue'
-import PendingChatsView from '@/views/PendingChatsView.vue'
-import ActiveChatsView from '@/views/ActiveChatsView.vue'
-import ProfilePageView from '@/views/ProfilePageView.vue'
+import DashboardView from '@/views/agent/DashboardView.vue'
+import AgentLayout from '@/views/agent/AgentLayout.vue'
+import PendingChatsView from '@/views/agent/PendingChatsView.vue'
+import ActiveChatsView from '@/views/agent/ActiveChatsView.vue'
+import ProfilePageView from '@/views/agent/ProfilePageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,12 +15,13 @@ const router = createRouter({
       name: 'login',
       component: LoginView,
     },
+
+    { path: '', redirect: { name: 'login' } },
     {
-      path: '/',
+      path: '/agent',
       component: AgentLayout,
       // meta: { requiresAuth: true },
       children: [
-        { path: '', redirect: { name: 'dashboard' } },
         { path: 'dashboard', name: 'dashboard', component: DashboardView },
         { path: 'pending', name: 'pending', component: PendingChatsView },
         { path: 'active', name: 'active', component: ActiveChatsView },
