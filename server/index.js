@@ -24,9 +24,9 @@ app.use(
 );
 
 // routes
-app.use("/verilex/api/v1/auth", authRouter);
-app.use("/verilex/api/v1/admin", adminRouter);
-app.use("/verilex/api/v1/chats", chatRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/chats", chatRouter);
 
 const PORT = process.env.PORT || 3030;
 

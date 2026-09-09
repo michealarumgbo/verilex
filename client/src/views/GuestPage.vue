@@ -152,12 +152,12 @@ const vReveal = {
                 <a href="#"
                     class="flex items-center gap-2.5 font-display font-semibold text-[22px] tracking-tight text-[#101E2B]">
                     <span
-                        class="w-7.5 h-7.5 rounded-full border-[1.4px] border-[#A9834B] flex items-center justify-center text-[14px] font-bold text-[#A9834B]">V</span>
-                    Verilex
+                        class="w-7.5 h-7.5 rounded-full border-[1.4px] border-[#A9834B] flex items-center justify-center text-[14px] font-bold text-[#A9834B]">A</span>
+                    AACO
                 </a>
 
                 <nav class="hidden md:flex items-center gap-9">
-                    <a v-for="link in [['Services', '#services'], ['Process', '#process'], ['Why Verilex', '#why'], ['Contact', '#contact']]"
+                    <a v-for="link in [['Services', '#services'], ['Process', '#process'], ['Why AACO', '#why'], ['Contact', '#contact']]"
                         :key="link[1]" :href="link[1]"
                         class="group relative py-1 text-[14.5px] font-medium text-[#6B6558] hover:text-[#101E2B] transition-colors">
                         {{ link[0] }}
@@ -196,7 +196,7 @@ const vReveal = {
 
             <div v-if="mobileMenuOpen"
                 class="md:hidden border-t border-[#D6D1C0] bg-[#EFEDE5] px-5 py-5 flex flex-col gap-4">
-                <a v-for="link in [['Services', '#services'], ['Process', '#process'], ['Why Verilex', '#why'], ['Contact', '#contact']]"
+                <a v-for="link in [['Services', '#services'], ['Process', '#process'], ['Why AACO', '#why'], ['Contact', '#contact']]"
                     :key="link[1]" :href="link[1]" class="text-[15px] font-medium text-[#101E2B]"
                     @click="mobileMenuOpen = false">{{ link[0] }}</a>
                 <button type="button" @click="openAgentModal(); mobileMenuOpen = false"
@@ -226,7 +226,7 @@ const vReveal = {
                         Operate with proof.
                     </h1>
                     <p v-reveal class="mt-5 text-[17.5px] text-[#6B6558] max-w-120 leading-relaxed">
-                        Verilex handles company incorporation, NGO and association registration, tax clearance, TIN, and
+                        AACO handles company incorporation, NGO and association registration, tax clearance, TIN, and
                         annual returns — every certificate your business needs, filed correctly the first time.
                     </p>
                     <div v-reveal class="flex flex-wrap gap-3.5 mt-8">
@@ -293,7 +293,7 @@ const vReveal = {
                         <path id="sealCircle" d="M 75,15 A 60,60 0 1 1 74.9,15" fill="none" />
                         <text font-family="IBM Plex Mono, monospace" font-size="8.4" letter-spacing="2.5"
                             fill="#A9834B">
-                            <textPath href="#sealCircle" startOffset="0%">VERILEX · CHAMBERS · LAGOS · VERILEX ·
+                            <textPath href="#sealCircle" startOffset="0%">AACO · CHAMBERS · LAGOS · AACO ·
                                 CHAMBERS · LAGOS ·</textPath>
                         </text>
                         <text x="75" y="70" text-anchor="middle" font-family="Fraunces, serif" font-size="30"
@@ -371,13 +371,13 @@ const vReveal = {
             </div>
         </section>
 
-        <!-- ============================= WHY VERILEX ============================= -->
+        <!-- ============================= WHY AACO ============================= -->
         <section id="why" class="py-16 md:py-24">
             <div class="max-w-295 mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 items-start">
                 <div>
                     <div v-reveal class="max-w-160 mb-9">
                         <div class="font-mono2 text-[11.5px] tracking-[0.14em] uppercase text-[#1E3B32] font-medium">WHY
-                            VERILEX</div>
+                            AACO</div>
                         <h2
                             class="font-display font-semibold text-[28px] sm:text-[36px] lg:text-[40px] text-[#101E2B] leading-tight mt-3">
                             Paperwork you don't have to worry about
@@ -402,7 +402,7 @@ const vReveal = {
                 <div v-reveal class="bg-[#E7E4D8] border border-[#D6D1C0] p-8 sm:p-11">
                     <div class="font-display text-6xl text-[#A9834B] leading-none">"</div>
                     <blockquote class="font-display text-[22px] leading-snug text-[#101E2B] mt-2.5 mb-6 font-medium">
-                        Verilex registered our foundation and had the CAC certificate back to us in under two weeks. No
+                        AACO registered our foundation and had the CAC certificate back to us in under two weeks. No
                         back-and-forth, no missing documents.
                     </blockquote>
                     <div class="text-[13.5px] text-[#6B6558]">
@@ -434,7 +434,7 @@ const vReveal = {
                     </p>
                     <div class="mt-9 flex flex-col gap-2.5 text-[14.5px] text-[rgba(239,237,229,0.75)]">
                         <div>📍 12 Marina Business District, Lagos Island, Lagos</div>
-                        <div>✉️ hello@verilex.ng</div>
+                        <div>✉️ guest@aaco.legal</div>
                         <div>☎ +234 800 000 0000</div>
                     </div>
                 </div>
@@ -482,7 +482,7 @@ const vReveal = {
                 <div
                     class="grid sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 pb-12 border-b border-[rgba(239,237,229,0.12)]">
                     <div>
-                        <div class="font-display font-semibold text-xl text-[#EFEDE5] mb-3.5">Verilex</div>
+                        <div class="font-display font-semibold text-xl text-[#EFEDE5] mb-3.5">AACO</div>
                         <p class="text-sm leading-relaxed max-w-70">
                             Company registration and CAC/FIRS filing agents based in Lagos, Nigeria. We handle the
                             paperwork so you can run the business.
@@ -504,21 +504,21 @@ const vReveal = {
                         <a href="#process" class="block text-sm py-1.5 hover:text-[#C9A467] transition-colors">How it
                             works</a>
                         <a href="#why" class="block text-sm py-1.5 hover:text-[#C9A467] transition-colors">Why
-                            Verilex</a>
+                            AACO</a>
                         <a href="#contact"
                             class="block text-sm py-1.5 hover:text-[#C9A467] transition-colors">Contact</a>
                     </div>
                     <div>
                         <h4 class="text-xs tracking-wider uppercase text-[#EFEDE5] font-semibold mb-4">Contact</h4>
-                        <a href="mailto:hello@verilex.ng"
-                            class="block text-sm py-1.5 hover:text-[#C9A467] transition-colors">hello@verilex.ng</a>
+                        <a href="mailto:guest@aaco.legal"
+                            class="block text-sm py-1.5 hover:text-[#C9A467] transition-colors">guest@aaco.legal</a>
                         <a href="tel:+2348000000000"
                             class="block text-sm py-1.5 hover:text-[#C9A467] transition-colors">+234 800 000 0000</a>
                         <span class="block text-sm py-1.5">Lagos Island, Lagos</span>
                     </div>
                 </div>
                 <div class="flex flex-wrap justify-between items-center gap-3 pt-6 text-[12.5px]">
-                    <span>© 2026 Verilex Chambers. All rights reserved.</span>
+                    <span>© 2026 ARUMGBO ARUMGBO CO. All rights reserved.</span>
                     <span>Registered with the Corporate Affairs Commission, Nigeria.</span>
                 </div>
             </div>
@@ -600,9 +600,9 @@ const vReveal = {
                             <h3 class="font-display text-[23px] text-[#101E2B] font-semibold mb-2.5">Request sent</h3>
                             <p class="text-[14.5px] text-[#6B6558] leading-relaxed mb-2">
 
-                            <p>
-                                We've notified our team. We will redirect you to the chat shortly.
-                            </p>
+                                <span>
+                                    We've notified our team. We will redirect you to the chat shortly.
+                                </span>
                             </p>
 
                         </div>
