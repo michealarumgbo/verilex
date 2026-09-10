@@ -23,14 +23,14 @@ function handleSubmit() {
     setTimeout(() => {
         login({ email: email.value.trim() })
         isLoading.value = false
-        router.push({ name: 'dashboard' })
+        router.push({ path: '/agent/dashboard' })
     }, 900)
 }
 </script>
 
 <template>
     <div class="min-h-screen bg-[#EFEDE5] flex items-center justify-center px-5 py-12 font-body">
-        <div class="w-full max-w-[400px]">
+        <div class="w-full max-w-100">
             <!-- brand -->
             <div class="flex flex-col items-center mb-8">
                 <div

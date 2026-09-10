@@ -12,6 +12,8 @@ const chatScrollRef = ref(null)
 let agentJoinTimer = null
 let replyTimer = null
 
+// fetch chat using cookie
+
 function timeNow() {
     return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
@@ -35,6 +37,7 @@ const cannedReplies = [
     "Noted. Is there anything else you'd like to add before we proceed?",
 ]
 
+// send message - socket activity
 function sendMessage() {
     const text = messageInput.value.trim()
     if (!hasAgent.value || !text) return
@@ -45,6 +48,8 @@ function sendMessage() {
     }, 1200 + Math.random() * 1000)
 }
 
+
+// close chat - socket activity
 function closeChat() {
     clearTimeout(agentJoinTimer)
     clearTimeout(replyTimer)

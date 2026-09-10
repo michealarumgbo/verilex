@@ -73,3 +73,24 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+@theme {
+  --color-ink: #101e2b;
+  --color-ink-2: #182b3d;
+  --color-paper: #efede5;
+  --color-paper-2: #e7e4d8;
+  --color-card: #fbfaf6;
+  --color-brass: #a9834b;
+  --color-brass-light: #c9a467;
+  --color-emerald: #1e3b32;
+  --color-rule: #d6d1c0;
+  --color-muted: #6b6558;
+  --color-muted-light: #9a9587;
+  --color-charcoal: #1b1b18;
+  --color-success: #3e8e63;
+  --color-danger: #b3413c;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono2: 'IBM Plex Mono', monospace;
+}
