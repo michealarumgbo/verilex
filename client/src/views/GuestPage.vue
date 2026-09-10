@@ -104,10 +104,11 @@ function closeAgentModal() {
 
 function submitAgentForm() {
     agentStep.value = 'success'
+    const formData = agentForm
     setTimeout(() => {
         connectedAgentName.value = agentPool[Math.floor(Math.random() * agentPool.length)]
         router.push("/chats/agent/")
-    }, 5000)
+    }, 3000)
 }
 
 function onOverlayClick(e) {
@@ -565,9 +566,9 @@ const vReveal = {
                                 </div>
                                 <div class="mb-4">
                                     <label for="ag-contact"
-                                        class="block text-xs text-[#6B6558] mb-1.5 font-medium">Phone or email</label>
+                                        class="block text-xs text-[#6B6558] mb-1.5 font-medium">Email</label>
                                     <input id="ag-contact" v-model="agentForm.contact" type="text"
-                                        placeholder="How should the agent reach you?" required
+                                        placeholder="Please enter your email?" required
                                         class="w-full border border-[#D6D1C0] bg-white px-3.5 py-2.5 text-[14.5px] focus:outline-none focus:border-[#A9834B]">
                                 </div>
                                 <div class="mb-4">

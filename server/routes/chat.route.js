@@ -38,7 +38,7 @@ router.get(
 router.post("/", createChat);
 
 router.get("/active", auth(ACCESS_SECRET), authorise("agent"), getActiveChat);
-router.get("/session/:sessionId", getGuestChat);
+router.get("/session/", getGuestChat);
 router.get("/:chatId", auth(ACCESS_SECRET), authorise("agent"), getAgentChat);
 
 export default router;

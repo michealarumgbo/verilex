@@ -139,7 +139,7 @@ export const createChat = async (req, res) => {
   });
 
   res.cookie("chatSession", sessionId, {
-    maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 24 * 60 * 60 * 1000, // expires in 1 day
     signed: true,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
