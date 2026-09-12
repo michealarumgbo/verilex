@@ -8,6 +8,7 @@ import adminRouter from "./routes/admin.route.js";
 import chatRouter from "./routes/chat.route.js";
 import cookieParser from "cookie-parser";
 import { registerSocketHandlers } from "./sockets/sockets.js";
+import errorMiddleware from "./middlewares/error.middleware.js";
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ app.use(
     origin:
       process.env.NODE_ENV === "production"
         ? process.env.CLIENT_URL
-        : ["http://localhost:5173"],
+        : ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
   }),
 );
 
@@ -27,6 +29,7 @@ app.use(
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/chats", chatRouter);
+app.use("", errorMiddleware);
 
 const PORT = process.env.PORT || 3030;
 

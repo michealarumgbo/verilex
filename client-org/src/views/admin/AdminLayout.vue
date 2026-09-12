@@ -1,7 +1,24 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { adminStore } from '@/stores/adminStore'
+import { useUserStore } from '@/stores/user'
+
+const { getMe, logout } = useUserStore()
+const name = ref('')
+
+const getAdminInfo = async () => {
+    const data = await getMe()
+    if (data?.error) {
+        console.error(data.error)
+        return
+    }
+
+    name.value = data.user.firstname + " " + data.user.lastname
+    // console.log(data.user)
+}
+
+getAdminInfo()
 
 
 const route = useRoute()
@@ -19,10 +36,14 @@ function isActive(item) {
     return route.name === item.name
 }
 
-function handleLogout() {
-    // Wire this up to your real auth system — not scoped for this build.
-
-    router.push({ name: 'login' })
+async function handleLogout() {
+    const data = await logout()
+    if (data?.message) {
+        router.push({ name: 'login' })
+    }
+    else {
+        console.error(data?.error)
+    }
 }
 </script>
 
@@ -49,7 +70,7 @@ function handleLogout() {
                     A
                 </div>
                 <div class="min-w-0">
-                    <div class="text-[13.5px] font-semibold truncate">System Admin</div>
+                    <div class="text-[13.5px] font-semibold truncate">{{ name }}</div>
                     <div class="flex items-center gap-1.5 mt-0.5">
                         <span class="w-1.5 h-1.5 rounded-full bg-success shrink-0"></span>
                         <span class="font-mono2 text-[10px] text-paper/60">Monitoring</span>

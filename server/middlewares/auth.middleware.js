@@ -1,6 +1,8 @@
 import { UnauthourizedError } from "../errors.js";
 import User from "../models/User.js";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+import RefreshToken from "../models/RefreshToken.js";
 
 dotenv.config();
 

@@ -1,10 +1,11 @@
 {
-  "name": "verilex-server",
+  "name": "aaoc-server",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seed:admin": "node config/seedAdmin.js"
   },
   "keywords": [],
   "author": "",

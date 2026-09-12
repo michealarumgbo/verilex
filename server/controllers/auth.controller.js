@@ -36,7 +36,7 @@ const refreshCookieOptions = {
 // login - (agent & admin)
 export const login = async (req, res) => {
   // parse the input for validation
-  const { email, password } = login.parse(req.body);
+  const { email, password } = loginSchema.parse(req.body);
 
   //   check if agent already exists
   const user = await User.findOne({ email });
@@ -81,7 +81,7 @@ export const login = async (req, res) => {
 
   return res.status(STATUS_CODE.SUCCESS).json({
     message: "User logged in successfully",
-    user: { ...userData, accessToken, refreshToken },
+    user: { ...userData },
   });
 };
 

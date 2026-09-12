@@ -24,7 +24,7 @@ router.post(
   refreshAccessToken,
 );
 router.post("/password/reset", auth(ACCESS_SECRET), updatePassword);
-router.get("/user/me", auth(ACCESS_SECRET), getMe);
+router.get("/me", auth(ACCESS_SECRET), getMe);
 router.post("/logout", auth(ACCESS_SECRET), logout);
 
 export default router;
