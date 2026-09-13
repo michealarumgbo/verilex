@@ -19,7 +19,7 @@ async function handleSubmit() {
     errors.value = []
     setTimeout(() => {
         errors.value = []
-    }, 3000)
+    }, 5000)
     if (!email.value.trim()) {
         errors.value.push('Enter your email to continue.')
         return
@@ -74,7 +74,7 @@ async function handleSubmit() {
                 class="bg-card border border-rule p-8 shadow-[0_1px_2px_rgba(16,30,43,0.06),0_8px_24px_rgba(16,30,43,0.06)]">
                 <div class="mb-4">
                     <label for="email" class="block text-xs text-muted mb-1.5 font-medium">Work email</label>
-                    <input id="email" v-model="email" type="email" autocomplete="username" placeholder="you@verilex.ng"
+                    <input id="email" v-model="email" type="email" autocomplete="username" placeholder="Enter your work email"
                         class="w-full border border-rule bg-white px-3.5 py-3 text-[14.5px] text-charcoal focus:outline-none focus:border-brass">
                 </div>
                 <div class="mb-2">
