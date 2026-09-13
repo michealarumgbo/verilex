@@ -1,4 +1,4 @@
-import { UnauthourizedError } from "../errors.js";
+import { UnAuthenticatedError, UnauthourizedError } from "../errors.js";
 import User from "../models/User.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
@@ -11,7 +11,7 @@ export const auth = (secret_key = process.env.JWT_ACCESS_SECRET) => {
     // get token
     const token = req.signedCookies.accessToken;
     if (!token) {
-      throw UnauthourizedError("Access token required");
+      throw UnAuthenticatedError("Access token required");
     }
 
     // verify token
@@ -32,7 +32,7 @@ export const auth = (secret_key = process.env.JWT_ACCESS_SECRET) => {
     }).select("token");
 
     if (!isLoggedIn || !isLoggedIn.token) {
-      throw UnauthourizedError("User is already logged out");
+      throw UnAuthenticatedError("User is already logged out");
     }
 
     // append user to req object
@@ -49,7 +49,7 @@ export const authRefreshToken = (
     // get token
     const token = req.signedCookies.refreshToken;
     if (!token) {
-      throw UnauthourizedError("Refresh token required");
+      throw UnAuthenticatedError("Refresh token required");
     }
 
     // verify token
@@ -71,7 +71,7 @@ export const authRefreshToken = (
     });
 
     if (!refreshToken) {
-      throw UnauthourizedError("Invalid refresh token or user logged out");
+      throw UnAuthenticatedError("Invalid refresh token or user logged out");
     }
 
     // append user to req object

@@ -110,10 +110,6 @@ export const refreshAccessToken = async (req, res) => {
   await RefreshToken.updateOne({ user: user._id }, { token: refreshToken });
   return res.status(STATUS_CODE.SUCCESS).json({
     message: "New Token Generated Successfully",
-    user: {
-      accessToken,
-      refreshToken,
-    },
   });
 };
 
