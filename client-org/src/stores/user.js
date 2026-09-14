@@ -93,5 +93,5 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  return { login, getMe, logout, user, initialized }
+  return { login, getMe, logout, user, initialized, refreshToken }
 })

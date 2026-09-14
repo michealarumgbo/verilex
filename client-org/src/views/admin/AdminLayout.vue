@@ -3,8 +3,10 @@ import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { adminStore } from '@/stores/adminStore'
 import { useUserStore } from '@/stores/user'
+import { useAdminStore } from '@/stores/admin'
 
 const { getMe, logout } = useUserStore()
+const { getAgents, getGuests, guests, agents } = useAdminStore()
 const name = ref('')
 
 const getAdminInfo = async () => {
@@ -16,6 +18,20 @@ const getAdminInfo = async () => {
 
     name.value = data.user.firstname + " " + data.user.lastname
     // console.log(data.user)
+
+    const agentsData = await getAgents()
+    if (agentsData?.error) {
+        console.error(agentsData.error)
+        return
+    }
+    const guestsData = await getGuests()
+    if (guestsData?.error) {
+        console.error(guestsData.error)
+        return
+    }
+
+    console.log(agents)
+
 }
 
 getAdminInfo()
@@ -82,10 +98,10 @@ async function handleLogout() {
             <nav class="flex-1 w-full px-3 py-5 flex flex-col gap-2 overflow-y-auto">
                 <router-link v-for="item in navItems" :key="item.name" :to="item.to">
                     <div class=" flex px-3 py-3  items-center gap-3"
-                        :class="isActive(item) ? 'bg-[rgba(169,131,75,0.14)] text-[#C9A467]' : 'text-[rgba(239,237,229,0.65)] hover:text-[#EFEDE5] hover:bg-[rgba(239,237,229,0.05)]'">
+                        :class="isActive(item) ? 'bg-[rgba(169,131,75,0.14)] text-brass-light' : 'text-[rgba(239,237,229,0.65)] hover:text-paper hover:bg-[rgba(239,237,229,0.05)]'">
                         <p><i :class="item.icon"></i> {{ item.label }}</p>
                         <p v-if="item.count" class="font-mono2 text-[10px] px-2 py-0.5 rounded-full shrink-0"
-                            :class="isActive(item) ? 'bg-[#A9834B] text-[#101E2B]' : 'bg-[rgba(239,237,229,0.1)] text-[rgba(239,237,229,0.7)]'">
+                            :class="isActive(item) ? 'bg-brass text-ink' : 'bg-[rgba(239,237,229,0.1)] text-[rgba(239,237,229,0.7)]'">
                             {{ item.count }}
                         </p>
                     </div>
