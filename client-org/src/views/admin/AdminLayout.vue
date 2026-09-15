@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { adminStore } from '@/stores/adminStore'
 import { useUserStore } from '@/stores/user'
@@ -9,32 +9,35 @@ const { getMe, logout } = useUserStore()
 const { getAgents, getGuests, guests, agents } = useAdminStore()
 const name = ref('')
 
-const getAdminInfo = async () => {
-    const data = await getMe()
-    if (data?.error) {
-        console.error(data.error)
-        return
+
+
+onMounted(() => {
+    const getAdminInfo = async () => {
+        const data = await getMe()
+        if (data?.error) {
+            console.error(data.error)
+            return
+        }
+
+        name.value = data.user.firstname + " " + data.user.lastname
+        // console.log(data.user)
+
+        const agentsData = await getAgents()
+        if (agentsData?.error) {
+            console.error(agentsData.error)
+            return
+        }
+        // const guestsData = await getGuests()
+        // if (guestsData?.error) {
+        //     console.error(guestsData.error)
+        //     return
+        // }
+        console.log(agents)
     }
+    getAdminInfo()
+})
 
-    name.value = data.user.firstname + " " + data.user.lastname
-    // console.log(data.user)
 
-    const agentsData = await getAgents()
-    if (agentsData?.error) {
-        console.error(agentsData.error)
-        return
-    }
-    const guestsData = await getGuests()
-    if (guestsData?.error) {
-        console.error(guestsData.error)
-        return
-    }
-
-    console.log(agents)
-
-}
-
-getAdminInfo()
 
 
 const route = useRoute()
